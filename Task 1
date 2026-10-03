@@ -1,0 +1,84 @@
+```cpp
+#include <iostream>
+using namespace std;
+
+const int Size = 8;
+
+class Stack {
+    int arr[Size];
+    int Top;
+
+public:
+    Stack() {
+        Top = -1;
+    }
+
+    bool IsEmpty() {
+        return Top == -1;
+    }
+
+    bool IsFull() {
+        return Top == Size - 1;
+    }
+
+    void Push(int Value) {
+        if (IsFull()) {
+            cout << "Stack is full!" << endl;
+            return;
+        }
+
+        arr[++Top] = Value;
+        cout << "Top operation: " << arr[Top] << endl;
+    }
+
+    void Undo() {
+        if (IsEmpty()) {
+            cout << "Undo requested, but stack is empty!" << endl;
+            return;
+        }
+
+        Top--;
+
+        if (IsEmpty())
+            cout << "Top operation: None" << endl;
+        else
+            cout << "Top operation: " << arr[Top] << endl;
+    }
+
+    void Display() {
+        cout << "\nOperations remaining (top to bottom): ";
+
+        if (IsEmpty()) {
+            cout << "None";
+            return;
+        }
+
+        for (int i = Top; i >= 0; i--)
+            cout << arr[i] << " ";
+    }
+};
+
+int main() {
+    Stack S;
+
+    S.Push(12);
+    S.Push(25);
+    S.Push(17);
+    S.Push(31);
+    S.Push(44);
+    S.Push(19);
+
+    S.Undo();
+    S.Undo();
+    S.Undo();
+
+    S.Push(52);
+
+    S.Undo();
+    S.Undo();
+
+    S.Display();
+
+    return 0;
+}
+```
